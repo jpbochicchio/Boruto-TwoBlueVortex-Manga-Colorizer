@@ -17,6 +17,7 @@ from flask_cors import CORS
 from denoisator import MangaDenoiser
 from colorizator import MangaColorizator
 from upscalator import MangaUpscaler
+from custom_colorizor import TwoBlueVortexMangaColorizator
 from utils.utils import distance_from_grayscale, generate_random_id, \
     image_to_base64, load_image_as_base64, save_image, sanitize_string, clear_torch_cache
 
@@ -229,7 +230,7 @@ denoiser = None
 def initialize_components():
     global colorizer, upscaler, denoiser
 
-    colorizer = MangaColorizator(config) if config.colorize else None
+    colorizer = TwoBlueVortexMangaColorizator(config) if config.colorize else None
     upscaler = MangaUpscaler(config) if config.upscale else None
     denoiser = MangaDenoiser(config) if config.denoise else None
     print(f'[+] Components initialized')

@@ -16,8 +16,17 @@ class TwoBlueVortexMangaColorizator:
         else:
             self.device = config.device
 
-        self.model = CycleGANModel().to(self.device)
-        self.model.load_state_dict(torch.load('networks/boruto_tbv_cyclegan_generator.pth'))
+        try:
+            self.model = CycleGANModel().to(self.device)
+        except Exception as ex:
+            print("[-] Error initializing CycleGAN model: ", ex)
+            raise ex
+
+        try:
+            self.model.load_state_dict(torch.load('networks/boruto_tbv_cyclegan_generator.pth'))
+        except Exception as ex:
+            print("[-] Error loading TwoBlueVortex pth file: ", ex)
+            raise ex
         
         state_dict = torch.load(config.colorizer_path, map_location=self.device)
         self.model.generator.load_state_dict(state_dict)
@@ -26,7 +35,6 @@ class TwoBlueVortexMangaColorizator:
         self.denoiser = FFDNetDenoiser(self.device)
         
         self.current_image = None
-        self.current_hint = None
         self.current_pad = None
 
         self.scale = 1
@@ -38,18 +46,6 @@ class TwoBlueVortexMangaColorizator:
         
         image, self.current_pad = resize_pad(image, size)
         self.current_image = transform(image).unsqueeze(0).to(self.device)
-        self.current_hint = torch.zeros(1, 4, self.current_image.shape[2], self.current_image.shape[3])\
-            .float().to(self.device)
-    
-    def update_hint(self, hint, mask):
-        if issubclass(hint.dtype.type, np.integer):
-            hint = hint.astype('float32') / 255
-            
-        hint = (hint - 0.5) / 0.5
-        hint = torch.FloatTensor(hint).permute(2, 0, 1)
-        mask = torch.FloatTensor(np.expand_dims(mask, 0))
-
-        self.current_hint = torch.cat([hint * mask, mask], 0).unsqueeze(0).to(self.device)
 
     def colorize(self):
         with torch.no_grad():
