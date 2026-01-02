@@ -1,0 +1,3 @@
+python app-stream.py --no-ssl --upscaler_type=GigaGAN --upscaler_path=networks/GigaGAN.ckpt
+^^ Uses the GigaGAN upscaler weights from AuraSR-v2 -- implementation found here: https://huggingface.co/fal/AuraSR-v2 ^^
+^^ Download the weights from the above and save as GigaGAN.ckpt, then drop in this folder and run the above command to get better upscaling (IMO) ^^
