@@ -5,6 +5,6 @@ Backendx/manga/*
 .vs/
 Backend/networks/generator.zip
 Backend/networks/GigaGan.ckpt
-!TrainingUtilities/checkpoints/**/latest_net*
-TrainingUtilities/checkpoints/**/*
+TrainingUtilities/checkpoints/tbv_colorization_training_experiment/**
+!TrainingUtilities/checkpoints/tbv_colorization_training_experiment/latest*.pth
 TrainingUtilities/data/training_dataset/*
