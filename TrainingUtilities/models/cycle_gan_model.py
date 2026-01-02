@@ -6,7 +6,10 @@ from .base_model import BaseModel
 from . import networks
 
 
-class CycleGANModel(BaseModel):
+class CycleGANModel(BaseModel, nn.Module):
+    def __init__(self):
+        super(CycleGANModel, self).__init__()
+
     def name(self):
         return 'CycleGANModel'
 
