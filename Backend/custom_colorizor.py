@@ -49,7 +49,7 @@ class TwoBlueVortexMangaColorizator:
 
     def colorize(self):
         with torch.no_grad():
-            img = torch.cat([self.current_image, self.current_hint], 1)
+            colored_image = self.model(self.current_image)
 
             if self.tile_size > 0:
                 fake_color = tile_process(self.model, img, self.scale, self.tile_size, self.tile_pad)
