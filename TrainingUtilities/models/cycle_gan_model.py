@@ -1,4 +1,5 @@
 import torch
+import torch.nn as nn
 import itertools
 from util.image_pool import ImagePool
 from .base_model import BaseModel

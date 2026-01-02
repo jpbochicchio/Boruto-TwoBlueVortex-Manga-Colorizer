@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from torch.nn import Parameter
 
 from .extractor import SEResNeXt_Origin, BottleneckX_Origin
+from ...TrainingUtilities.models.cycle_gan_model import CycleGANModel
 
 
 def l2normalize(v, eps=1e-12):
