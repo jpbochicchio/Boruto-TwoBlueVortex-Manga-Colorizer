@@ -3,4 +3,5 @@ __pycache__/
 Backendx/networks/generator.zip
 Backendx/manga/*
 .vs/
-
+Backend/networks/generator.zip
+Backend/networks/GigaGan.ckpt
